@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { AuthError } from 'next-auth';
 
 const signupSchema = z.object({
-  email: z.string().email('Email invalide'),
+  email: z.string('Email invalide'),
   password: z.string().min(6, 'Minimum 6 caractères'),
   name: z.string().min(2, 'Minimum 2 caractères').optional(),
 });
