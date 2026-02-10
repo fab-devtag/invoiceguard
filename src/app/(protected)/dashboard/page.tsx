@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { InvoiceList } from '@/components/dashboard/invoice-list';
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -41,7 +42,7 @@ export default async function DashboardPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       {!hasActiveSubscription && (
-        <Card className="mb-6 border-orange-200 bg-orange-50">
+        <Card className="mb-6 border-orange-800 bg-orange-950">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
@@ -105,60 +106,7 @@ export default async function DashboardPage() {
             <Link href="/dashboard/invoices/new">Créer une facture</Link>
           </Button>
         </CardHeader>
-        <CardContent>
-          {invoices.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              <p className="mb-4">Aucune facture pour le moment</p>
-              <Button asChild>
-                <Link href="/dashboard/invoices/new">
-                  Créer votre première facture
-                </Link>
-              </Button>
-            </div>
-          ) : (
-            <div className="space-y-2">
-              {invoices.map((invoice) => (
-                <div
-                  key={invoice.id}
-                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-slate-50 transition"
-                >
-                  <div>
-                    <div className="font-medium">{invoice.clientName}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {invoice.clientEmail}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-semibold">
-                      {invoice.amount.toFixed(2)} {invoice.currency}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      Échéance :{' '}
-                      {new Date(invoice.dueDate).toLocaleDateString('fr-FR')}
-                    </div>
-                  </div>
-                  <div>
-                    {invoice.status === 'OVERDUE' && (
-                      <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700 rounded">
-                        En retard
-                      </span>
-                    )}
-                    {invoice.status === 'PAID' && (
-                      <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded">
-                        Payée
-                      </span>
-                    )}
-                    {invoice.status === 'PENDING' && (
-                      <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded">
-                        En attente
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
+        <InvoiceList invoices={invoices} />
       </Card>
     </div>
   );

@@ -22,7 +22,7 @@ export default async function ProtectedLayout({
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b bg-white">
+      <header className="border-b">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-8">
             <Link href="/dashboard" className="text-xl font-bold">
@@ -57,7 +57,7 @@ export default async function ProtectedLayout({
         </div>
       </header>
 
-      <main className="flex-1 bg-slate-50">{children}</main>
+      <main className="flex-1">{children}</main>
     </div>
   );
 }

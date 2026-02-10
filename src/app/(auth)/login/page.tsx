@@ -63,7 +63,7 @@ export default function LoginPage() {
           </Button>
 
           <p className="text-sm text-center text-muted-foreground">
-            Pas encore de compte ?{' '}
+            Pas encore de compte ?
             <Link href="/signup" className="underline">
               Créer un compte
             </Link>
